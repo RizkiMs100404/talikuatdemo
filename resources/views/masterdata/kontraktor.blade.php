@@ -1,173 +1,211 @@
-
 @extends('layouts.app')
+
 @section('contents')
-<div class="container d-flex justify-content-end mt-5">
-<div class="height-100 bg-light">
-        <main>
-        <div class="content-wrapper" >
-<div class="card mt-4" id="card-kontraktor">
-        <div class="card-header">Data kontraktor</div>
-        
-        <div class="card-body">
-            <div class="container">
-                <a class="btn btn-mat btn-primary mb-3" data-bs-toggle="modal"
-                    data-bs-target="#createKontraktor">
-                    Tambah</a>
+<div class="container-fluid py-4">
 
-  <!-- serch -->
-  <div class=" text-center mt-3">
-    <div class="row">
-   
-      <!-- show entries -->
-      <div class="kiri col-md-4 mb-4">
-        <label class="d-flex">Show
-          <select >
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          </select> entries
-        </label>
+    {{-- Header & Breadcrumb --}}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="mb-1 fw-bold">Data Kontraktor</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-alt bg-transparent p-0">
+                    <li class="breadcrumb-item"><a href="#">Master Data</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Data Kontraktor</li>
+                </ol>
+            </nav>
+        </div>
+        <div>
+            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalTambah">
+                <i class="bi bi-plus-lg me-1"></i>Tambah Kontraktor
+            </button>
+            <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFilter">
+                <i class="bi bi-funnel me-1"></i>Filter
+            </button>
+        </div>
     </div>
-    <!-- search button -->
-    <div class="kanan col-md-2 offset-md-3 ">
-    <label class="d-flex ">Search:
-      <input type="search" >
-    </label>
-    </div>
-    <!-- end of search button -->
 
+    {{-- Toolbar --}}
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-body d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+                <label class="mb-0">Show</label>
+                <select class="form-select form-select-sm w-auto">
+                    <option>10</option>
+                    <option>25</option>
+                    <option>50</option>
+                </select>
+                <label class="mb-0">entries</label>
             </div>
-            <div class="" style="max-height: 80vh; overflow-y: auto">
-                <table border="2" id="kontraktor" class="table table-white table-striped">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Perusahaan</th>
-                            <th>Nama Direktur</th>
-                            <th>No. Telp</th>
-                            <th style="width: 22%">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                                                <tr>
-                            <td>1</td>
-                            <td>PT ilmu hitam</td>
-                            <td>Nur Rawarontek</td>
-                            <td>00000000000000</td>
-                            <td>
-                                <a class="btn btn-mat btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#editKontraktor" onclick="updateKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-                            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-                                    </a>
-
-                                <a class="btn btn-mat btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteKontraktor" onclick="deleteKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-</svg>
-                                   
-                                </a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>PT ilmu hitam</td>
-                            <td>Nur Rawarontek</td>
-                            <td>00000000000000</td>
-                            <td>
-                                <a class="btn btn-mat btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#editKontraktor" onclick="updateKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-                                    </a>
-
-                                <a class="btn btn-mat btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteKontraktor" onclick="deleteKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-</svg>
-                                   
-                                </a>
-                            </td>
-                        </tr>
-              
-
-                        <tr>
-                            <td>1</td>
-                            <td>PT ilmu hitam</td>
-                            <td>Nur Rawarontek</td>
-                            <td>00000000000000</td>
-                            <td>
-                                <a class="btn btn-mat btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#editKontraktor"onclick="updateKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-                                    </a>
-
-                                <a class="btn btn-mat btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteKontraktor" onclick="deleteKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-</svg>
-                                   
-                                </a>
-                            </td>
-                        </tr>
-              
-
-                        <tr>
-                            <td>1</td>
-                            <td>PT ilmu hitam</td>
-                            <td>Nur Rawarontek</td>
-                            <td>00000000000000</td>
-                            <td>
-                                <a class="btn btn-mat btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#editKontraktor"onclick="updateKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-  <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-  <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-</svg>
-                                    </a>
-
-                                <a class="btn btn-mat btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteKontraktor" onclick="deleteKontraktor(this)">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-</svg>
-                                   
-                                </a>
-                            </td>
-                        </tr>
-              
-
-
-                        </tbody>
-                </table>
+            <div class="input-group input-group-sm w-auto">
+                <input type="text" class="form-control" placeholder="Search...">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
             </div>
         </div>
     </div>
 
-        <!-- Modal Add Kontraktor -->
-<div class="modal fade" id="createKontraktor" >
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="createKontraktorLabel">
-                    Tambah Data Kontraktor
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    {{-- Table --}}
+    <div class="card shadow-sm border-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Perusahaan</th>
+                        <th>Nama Direktur</th>
+                        <th>No. Telp</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>PT Ilmu Hitam</td>
+                        <td>Nur Rawarontek</td>
+                        <td>00000000000000</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalHapus">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>PT Ilmu Hitam</td>
+                        <td>Nur Rawarontek</td>
+                        <td>00000000000000</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalHapus">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>PT Ilmu Hitam</td>
+                        <td>Nur Rawarontek</td>
+                        <td>00000000000000</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalHapus">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>PT Ilmu Hitam</td>
+                        <td>Nur Rawarontek</td>
+                        <td>00000000000000</td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#modalEdit">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalHapus">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+{{-- Offcanvas Filter --}}
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasFilter">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Filter Kontraktor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="mb-3">
+            <label class="form-label">Nama Perusahaan</label>
+            <input type="text" class="form-control" placeholder="Cari nama perusahaan...">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Nama Direktur</label>
+            <input type="text" class="form-control" placeholder="Cari nama direktur...">
+        </div>
+        <button class="btn btn-primary w-100">Terapkan Filter</button>
+    </div>
+</div>
+
+{{-- Modal Tambah --}}
+<div class="modal fade" id="modalTambah" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Tambah Kontraktor</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
-                <input type="hidden">                
-                <div class="modal-body">
-                    <div class="mb-3">
+            <div class="modal-body">
+                {{-- Form Fields --}}
+                <div class="mb-3">
+                    <label class="form-label">Nama Perusahaan Kontraktor</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama Direktur</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nama General Superintendent</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Alamat</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">NPWP</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">No. Telp</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Bank</label>
+                    <input type="text" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">No. Rekening</label>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Modal Edit --}}
+<div class="modal fade" id="modalEdit" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title">Edit Kontraktor</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
                         <label  class="form-label">Nama Perusahaan Kontraktor
                         </label>
                         <input type="text" class="form-control" />
@@ -205,107 +243,32 @@
                     <div class="mb-3">
                         <label  class="form-label">No. Rekening</label>
                         <input type="text" class="form-control"  />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Modal Edit Kontraktor -->
-<div class="modal fade" id="editKontraktor">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="editKontraktorLabel">
-                    Tambah Data Kontraktor
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-                <input type="hidden" >                
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label  class="form-label">Nama Perusahaan Kontraktor
-                        </label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">Nama Direktur
-                        </label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">Nama General Superintendent
-                        </label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">Email </label>
-                        <input type="email" class="form-control"  />
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">Alamat</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="npwp" class="form-label">NPWP</label>
-                        <input type="text" class="form-control"  />
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">No. Telp</label>
-                        <input type="tel" class="form-control"  />
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">Bank</label>
-                        <input type="text" class="form-control" />
-                    </div>
-                    <div class="mb-3">
-                        <label  class="form-label">No. Rekening</label>
-                        <input type="text" class="form-control"  />
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="submit" class="btn btn-success">Save</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Modal Delete Kontraktor -->
-<div class="modal fade" id="deleteKontraktor">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="deleteKontraktorLabel">
-                    Delete Data Kontraktor
-                </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Apakah anda yakin ingin menghapus data ini?</p>
+                    </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    Close
-                </button>
-                <a class="btn btn-danger">Delete</a>
+                <button class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-warning text-white">Update</button>
             </div>
         </div>
     </div>
 </div>
-      
-</div>
-    </div>
+
+{{-- Modal Hapus --}}
+<div class="modal fade" id="modalHapus" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content border-0">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Hapus Data</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p class="mb-0">Yakin ingin menghapus data ini?</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button class="btn btn-light btn-sm" data-bs-dismiss="modal">Batal</button>
+                <button class="btn btn-danger btn-sm">Hapus</button>
+            </div>
         </div>
-        </main>
+    </div>
 </div>
-</div>
-    @endsection
+@endsection

@@ -47,6 +47,7 @@
         .sidebar.collapsed {
             transform: translateX(-100%);
         }
+        
 
         .sidebar a {
             color: inherit;
@@ -224,6 +225,54 @@
             opacity: 1;
             z-index: 2;
         }
+
+        /* ===== RGB Rainbow Background untuk Night Mode ===== */
+.rgb-rainbow {
+    position: relative;
+    background: linear-gradient(270deg,
+        red, orange, yellow, green, blue, indigo, violet, red);
+    background-size: 1400% 1400%;
+    animation: rainbow 15s ease infinite;
+    overflow: hidden;
+}
+
+/* Animasi gradasi bergerak */
+@keyframes rainbow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ===== Efek Hujan ===== */
+.rain {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    animation: rainFall 0.5s linear infinite;
+}
+
+@keyframes rainFall {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100vh); }
+}
+
+/* ===== Efek Petir ===== */
+.lightning {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    animation: lightningFlash 5s infinite;
+}
+
+@keyframes lightningFlash {
+    0%, 97%, 100% { opacity: 0; }
+    98% { opacity: 1; }
+    99% { opacity: 0; }
+}
+
     </style>
     @stack('styles')
 </head>

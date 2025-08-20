@@ -1,21 +1,19 @@
- 
 @extends('layouts.app')
 @section('contents')
- 
- <!--Container Main start-->
- 
- <div class="height-100 bg-light">
-        <main>
-              <div class="container mt-3">
-        <div class="card mb-3" style="max-height: 100vh; overflow-y: auto;">
-        <div class="card-header">PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JALAN JL. PANGERAN CAKRABUANA </div>
-        <div class="card-body">
 
-                        <a href="/laporan" class="btn btn-mat btn-dark waves-effect waves-light" >Buat Laporan</a>
-                        <hr>
-            <div class="container mt-2">
-                <table border="2" class="table table-bordered table-striped">
-                    <thead>
+<div class="container mt-4">
+    {{-- Card Pertama --}}
+    <div class="card shadow border-0 rounded-4 mb-4">
+        <div class="card-header bg-primary text-white fw-bold">
+            PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JL. PANGERAN CAKRABUANA
+        </div>
+        <div class="card-body">
+            <a href="/laporan" class="btn btn-dark mb-3">
+                <i class="bi bi-file-earmark-plus"></i> Buat Laporan
+            </a>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-primary">
                         <tr>
                             <th>Bulan</th>
                             <th>Rencana</th>
@@ -26,27 +24,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                                            </tbody>
+                        {{-- Data akan dimuat di sini --}}
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-              </div>
-    </main>
-    </div>
- <!--Container Main start-->
- <div class="height-100 bg-light">
-        <main>
-              <div class="container mt-3">
-        <div class="card mb-3" style="max-height: 100vh; overflow-y: auto;">
-        <div class="card-header">PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JALAN JL. PANGERAN CAKRABUANA </div>
-        <div class="card-body">
 
-                        <a  class="btn btn-mat btn-dark waves-effect waves-light" >Buat Laporan</a>
-                        <hr>
-            <div class="container mt-2">
-                <table border="2" class="table table-bordered table-striped">
-                    <thead>
+    {{-- Card Kedua --}}
+    <div class="card shadow border-0 rounded-4">
+        <div class="card-header bg-success text-white fw-bold">
+            PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JL. PANGERAN CAKRABUANA
+        </div>
+        <div class="card-body">
+            <a href="#" class="btn btn-dark mb-3">
+                <i class="bi bi-file-earmark-plus"></i> Buat Laporan
+            </a>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-success">
                         <tr>
                             <th>Bulan</th>
                             <th>Rencana</th>
@@ -57,12 +53,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                                            </tbody>
+                        {{-- Data akan dimuat di sini --}}
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-              </div>
-    </main>
-    </div>
-    @endsection
+</div>
+
+@endsection

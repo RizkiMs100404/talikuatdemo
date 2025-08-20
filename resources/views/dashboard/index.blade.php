@@ -86,7 +86,7 @@ body.dark .page-title-icon i.bi-house {
 
 </style>
 
-<div class="mt-4 fade-in active-content">
+<div class="fade-in active-content my-0 p-0">
     <div class="content-wrapper">
         <!-- Page Header -->
         <div class="page-header mb-4">

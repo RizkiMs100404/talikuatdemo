@@ -1,22 +1,20 @@
- 
 @extends('layouts.app')
 @section('contents')
- 
- <!--Container Main start-->
- <div class="container d-flex justify-content-end mt-5">
- <div class="height-100 bg-light">
-        <main>
-        <div class="content-wrapper" >
-              <div class="container mt-3">
-        <div class="card mb-3" style="max-height: 100vh; overflow-y: auto;">
-        <div class="card-header">PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JALAN JL. PANGERAN CAKRABUANA </div>
-        <div class="card-body">
 
-                        <a href="/laporanmk.detail" class="btn btn-mat btn-dark waves-effect waves-light" >Buat Laporan</a>
-                        <hr>
-            <div class="container mt-2">
-                <table border="2" class="table table-bordered table-striped">
-                    <thead>
+<div class="container mt-5">
+    {{-- Card Pertama --}}
+    <div class="card shadow-sm mb-4">
+        <div class="card-header fw-bold">
+            PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JL. PANGERAN CAKRABUANA
+        </div>
+        <div class="card-body">
+            <a href="/laporanmk.detail" class="btn btn-dark mb-3">
+                <i class="bi bi-file-earmark-plus"></i> Buat Laporan
+            </a>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle text-center">
+                    <thead class="table-dark">
                         <tr>
                             <th>Bulan</th>
                             <th>Rencana</th>
@@ -27,23 +25,51 @@
                         </tr>
                     </thead>
                     <tbody>
-                                            </tbody>
+                        {{-- Data contoh --}}
+                        <tr>
+                            <td>Januari</td>
+                            <td>500</td>
+                            <td>480</td>
+                            <td>-20</td>
+                            <td><span class="badge bg-success">Selesai</span></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Februari</td>
+                            <td>600</td>
+                            <td>590</td>
+                            <td>-10</td>
+                            <td><span class="badge bg-warning text-dark">Proses</span></td>
+                            <td>
+                                <button class="btn btn-primary btn-sm">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {{-- /Data contoh --}}
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
-              </div>
- <!--Container Main start-->
-              <div class="container mt-3">
-        <div class="card mb-3" style="max-height: 100vh; overflow-y: auto;">
-        <div class="card-header">PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JALAN JL. PANGERAN CAKRABUANA </div>
-        <div class="card-body">
 
-                        <a  class="btn btn-mat btn-dark waves-effect waves-light" >Buat Laporan</a>
-                        <hr>
-            <div class="container mt-2">
-                <table border="2" class="table table-bordered table-striped">
-                    <thead>
+    {{-- Card Kedua --}}
+    <div class="card shadow-sm">
+        <div class="card-header fw-bold">
+            PK-6-38900K-126 - 1 PEKERJAAN PEMELIHARAAN BERKALA JALAN RUAS JL. PANGERAN CAKRABUANA
+        </div>
+        <div class="card-body">
+            <a href="#" class="btn btn-dark mb-3">
+                <i class="bi bi-file-earmark-plus"></i> Buat Laporan
+            </a>
+
+            <div class="table-responsive">
+                <table class="table table-hover table-striped align-middle text-center">
+                    <thead class="table-dark">
                         <tr>
                             <th>Bulan</th>
                             <th>Rencana</th>
@@ -54,14 +80,16 @@
                         </tr>
                     </thead>
                     <tbody>
-                                            </tbody>
+                        {{-- Data kosong --}}
+                        <tr>
+                            <td colspan="6" class="text-muted">Belum ada data</td>
+                        </tr>
+                        {{-- /Data kosong --}}
+                    </tbody>
                 </table>
             </div>
         </div>
-    </div>
-              </div>
-        </div>
-    </main>
     </div>
 </div>
-    @endsection
+
+@endsection
